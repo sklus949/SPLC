@@ -44,11 +44,9 @@ class RewardModel(object):
         self.opt = None
         self.activation = activation
         self.ensemble = []
-        # 参数列表
         self.paramlst = []
         self.construct_ensemble()
 
-    # 构建集成模型
     def construct_ensemble(self):
         for i in range(self.ensemble_size):
             model = nn.Sequential(*gen_net(in_size=self.observation_dim + self.action_dim,
@@ -64,14 +62,12 @@ class RewardModel(object):
         torch.save(state_dicts, path)
 
     def load_model(self, path):
-        # 用来处理.pt文件
         state_dicts = torch.load(path, map_location='cpu')
         for model, state_dict in zip(self.ensemble, state_dicts):
             model.load_state_dict(state_dict)
             model.to(self.device)
 
     def train(self, n_epochs, pref_dataset, data_size, batch_size):
-        # dataset表示数据集里面有多少条数据
         interval = int(data_size / batch_size) + 1
 
         for epoch in range(1, n_epochs + 1):
@@ -257,3 +253,4 @@ class TransformerRewardModel(RewardModel):
                 comparable_indices)
 
         return curr_loss, correct
+
