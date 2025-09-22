@@ -160,6 +160,7 @@ def main():
         if len(human_labels) < num_query and index % 5 == 1 and len(pre_dis_list) >= traj_len and len(now_dis_list) >= traj_len:
             l1 = len(pre_dis_list)
             l2 = len(now_dis_list)
+            # Collision Occurrence and Goal Progress
             if isinstance(pre_info, Collision) and isinstance(info, Collision):
                 if pre_dis_list[l1 - 1] < now_dis_list[l2 - 1]:
                     human_labels.append(0.7)
@@ -248,6 +249,8 @@ def main():
     with open(danger_design, "wb") as fp:
         pickle.dump(danger_list, fp)
 
+    # Risk Exposure
+    risk()
 
     file = 'dataset'
     file_name = '{}/{}'.format(file, file) + '.hdf5'
@@ -270,7 +273,7 @@ def main():
     else:
         print('finish')
 
-    risk()
+    
 
 
 def avg(input_list):
