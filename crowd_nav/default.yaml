@@ -1,0 +1,22 @@
+# environment
+env: CrowdSim-v0
+fake_label: false
+modality: 'state'
+structure: 'transformer1'
+# learning
+ensemble_size: 3
+batch_size: 64
+n_epochs: 10
+num_query: 200
+len_query: 15
+# misc
+seed: 0
+exp_name: transformer
+save_model: true
+use_wandb: false
+
+# transformer structure
+d_model: 256
+nhead: 4
+num_layers: 1
+max_seq_len: 100
