@@ -36,7 +36,6 @@ class Agent(object):
         self.policy = policy
         self.kinematics = policy.kinematics
 
-    # 这是我自己定义的函数，我发现机器人的set_policy方法没有实际作用
     def set_formal_policy(self, policy, kinematics):
         self.policy = policy
         self.kinematics = kinematics
@@ -141,3 +140,4 @@ class Agent(object):
 
     def reached_destination(self):
         return norm(np.array(self.get_position()) - np.array(self.get_goal_position())) < self.radius
+
