@@ -148,7 +148,7 @@ class ORCA(Policy):
 
     def rotate(self, state):
         """
-        Transform the coordinate to agent-centric. #将坐标转换为以代理为中心
+        Transform the coordinate to agent-centric.
         Input state tensor is of size (batch_size, state_length)
 
         """
@@ -183,3 +183,4 @@ class ORCA(Policy):
         # dg = ||p − pg||2 is the robot’s distance to the goal and di = ||p − pi||2 is the robot’s distance to the neighbor i
         new_state = torch.cat([dg, v_pref, theta, radius, vx, vy, px1, py1, vx1, vy1, radius1, da, radius_sum], dim=1)
         return new_state
+
