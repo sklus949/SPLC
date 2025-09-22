@@ -23,7 +23,6 @@ class CrowdSim(gym.Env):
 
         """
         self.time_limit = None
-        # 值为0.25
         self.time_step = None
         self.robot = None
         self.humans = None
