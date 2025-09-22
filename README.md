@@ -34,7 +34,7 @@ This repository is organized in two parts:
 * crowd_sim/ folder contains the simulation environment.
 
 ### Social Preference Learning
-Below are the instructions for preference data collection, reward model training, and offline reinforcement learning, which should be executed inside the crowd_nav/ folder.
+Here are the instructions for social preference learning, including preference data collection, reward model training, and offline reinforcement learning, which should be executed inside the crowd_nav/ folder.
 1. Preference data collection
 ```
 python mechanism.py
@@ -66,6 +66,7 @@ This repository contains the code for the following papers:
 
 ### Contact
 If you have any questions or find any bugs, please feel free to open an issue or pull request.
+
 
 
 
