@@ -137,18 +137,12 @@ class ReplayBuffer:
         dones = self._dones[indices]
         return [states, actions, rewards, next_states, dones]
 
-    def add_transition(self):
-        # Use this method to add new data into the replay buffer during fine-tuning.
-        # I left it unimplemented since now we do not do fine-tuning.
-        raise NotImplementedError
-
 
 def set_seed(
         seed: int, env: Optional[gym.Env] = None, deterministic_torch: bool = False
 ):
     if env is not None:
         env.seed(seed)
-        # env.action_space.seed(seed)
     os.environ["PYTHONHASHSEED"] = str(seed)
     np.random.seed(seed)
     random.seed(seed)
@@ -168,8 +162,6 @@ def wandb_init(config: dict) -> None:
 
 
 cnt = 20000
-
-
 @torch.no_grad()
 def eval_actor(
         env: gym.Env, actor: nn.Module, list1: List, list2: List, list3: List, list4: List, device: str,
@@ -198,16 +190,13 @@ def eval_actor(
         observation = env.reset(phase=phase, test_case=cnt)
         done = False
         rewards = 0
-        gamma = 1  # 折扣因子
+        gamma = 1
         while not done:
             joint_state = JointState(robot.get_full_state(), observation)
             state = to_np(transform(joint_state, device).view(1, -1).squeeze(0))
-            # print(state.shape)  # 输出为（65，）
             action = actor.act(state)
-            # print(action.shape)  # 输出为（2，）
             action = ActionXY(action[0], action[1])
             observation, reward, done, info = env.step(action)
-            # print(reward)
             rewards += reward * gamma
             gamma = gamma * 0.99
         if isinstance(info, ReachGoal):
@@ -226,7 +215,10 @@ def eval_actor(
         avg_nav_time = 0
     avg_reward = avg_reward / n_episodes
     print(
-        f"成功次数为{success} 成功率为{success / n_episodes} 碰撞次数{collision} 超时次数{run_time} 平均导航时间为{avg_nav_time} 平均奖励为{avg_reward} ")
+        f"Number of successes: {success}  Success rate: {success / n_episodes}  "
+        f"Number of collisions: {collision}  Number of timeouts: {run_time}  "
+        f"Average navigation time: {avg_nav_time}  Average reward: {avg_reward}"
+    )
     list1.append(success / n_episodes)
     list2.append(collision / n_episodes)
     list3.append(avg_nav_time)
@@ -260,13 +252,11 @@ def test_actor(
     for _ in range(n_episodes):
         observation, done = env.reset(phase=phase), False
         rewards = 0
-        gamma = 1  # 折扣因子
+        gamma = 1
         while not done:
             joint_state = JointState(robot.get_full_state(), observation)
             state = to_np(transform(joint_state, device).view(1, -1).squeeze(0))
-            # print(state.shape)  # 输出为（65，）
             action = actor.act(state)
-            # print(action.shape)  # 输出为（2，）
             action = ActionXY(action[0], action[1])
             observation, reward, done, info = env.step(action)
             # print(reward)
@@ -285,7 +275,10 @@ def test_actor(
     avg_nav_time = avg_nav_time / success
     avg_reward = avg_reward / n_episodes
     print(
-        f"成功次数为{success} 成功率为{success / n_episodes} 碰撞次数{collision} 超时次数{run_time} 平均导航时间为{avg_nav_time} 平均奖励为{avg_reward} ")
+        f"Number of successes: {success}  Success rate: {success / n_episodes}  "
+        f"Number of collisions: {collision}  Number of timeouts: {run_time}  "
+        f"Average navigation time: {avg_nav_time}  Average reward: {avg_reward}"
+    )
 
 
 def transform(state, device):
@@ -421,7 +414,6 @@ class GaussianPolicy(nn.Module):
         self.attention = ST(13)
 
     def forward(self, obs: torch.Tensor) -> Normal:
-        # print(f"obs的形状为{obs.shape}")
         obs = obs.reshape(obs.shape[0], -1, 13)
         x = self.attention(obs)
         mean = self.net(x)
@@ -486,11 +478,9 @@ class TwinQ(nn.Module):
     def both(
             self, state: torch.Tensor, action: torch.Tensor
     ) -> Tuple[torch.Tensor, torch.Tensor]:
-        # print(f"state的形状为{state.shape}")
         state = state.reshape(state.shape[0], -1, 13)
         x = self.attention(state)
         x = torch.cat((x, action), dim=1)
-        # sa = torch.cat([state, action], 1)
         return self.q1(x), self.q2(x)
 
     def forward(self, state: torch.Tensor, action: torch.Tensor) -> torch.Tensor:
@@ -506,7 +496,6 @@ class ValueFunction(nn.Module):
         self.attention = ST(13)
 
     def forward(self, state: torch.Tensor) -> torch.Tensor:
-        # print(f"state的形状为{state.shape}")
         state = state.reshape(state.shape[0], -1, 13)
         x = self.attention(state)
         return self.v(x)
@@ -655,7 +644,6 @@ class ImplicitQLearning:
         self.total_it = state_dict["total_it"]
 
 
-# 可以将TrainConfig里面的参数映射到train方法里面
 @pyrallis.wrap()
 def train(config: TrainConfig):
     env = gym.make(config.env)
@@ -685,7 +673,6 @@ def train(config: TrainConfig):
         config.device,
     )
     replay_buffer.load_d4rl_dataset(dataset)
-
 
     max_action = float(1)
 
@@ -769,6 +756,7 @@ def train(config: TrainConfig):
         n_episodes=500,
         seed=config.seed,
     )
+
 
 if __name__ == "__main__":
     train()
