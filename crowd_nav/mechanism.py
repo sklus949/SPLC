@@ -70,6 +70,10 @@ def main():
     robot.print_info()
 
     random.seed(42)
+    
+    capacity = 500000
+    num_query = 200
+    traj_len = 15
 
     run = True
     observations = []
@@ -87,7 +91,7 @@ def main():
     dis_list = []
     danger_list = []
 
-    traj_len = 15
+    
 
     success = 0
     total = 0
@@ -96,8 +100,6 @@ def main():
     step = 0
     index = -1
     pre_info = None
-    pre_time = 0
-    pre_danger = 0
 
     pre_dis_list = []
     pre_danger_list = []
@@ -106,8 +108,6 @@ def main():
     now_danger_list = []
     while run:
         j = 0
-        last_state = []
-        next_next_state = []
         ob = env.reset(phase=args.phase)
         deque_list = deque(maxlen=8)
         deque_list.clear()
@@ -150,16 +150,14 @@ def main():
             else:
                 now_danger_list.append(0)
 
-            if len(observations) == 500000:
+            if len(observations) == capacity:
                 run = False
                 break
-        if len(human_labels) < 200 and index % 5 == 0:
+        if len(human_labels) < num_query and index % 5 == 0:
             pre_info = info
-            pre_time = env.get_end_time()
-            pre_danger = danger
             pre_dis_list = copy.deepcopy(now_dis_list)
             pre_danger_list = copy.deepcopy(now_danger_list)
-        if len(human_labels) < 200 and index % 5 == 1 and len(pre_dis_list) >= traj_len and len(now_dis_list) >= traj_len:
+        if len(human_labels) < num_query and index % 5 == 1 and len(pre_dis_list) >= traj_len and len(now_dis_list) >= traj_len:
             l1 = len(pre_dis_list)
             l2 = len(now_dis_list)
             if isinstance(pre_info, Collision) and isinstance(info, Collision):
