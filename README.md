@@ -34,7 +34,7 @@ This repository is organized in two parts:
 * crowd_sim/ folder contains the simulation environment.
 
 ### Social Preference Learning
-1. Data collection
+1. Preference data collection
 ```
 python mechanism.py
 ```
@@ -65,6 +65,7 @@ This repository contains the code for the following papers:
 
 ### Contact
 If you have any questions or find any bugs, please feel free to open an issue or pull request.
+
 
 
 
