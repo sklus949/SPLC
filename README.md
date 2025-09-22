@@ -1,4 +1,4 @@
-# SPLC
+# SPLC: Social Preference Learning for Crowd Robot Navigation
 
 <!-- This repository contains the codes for our paper titled "Intrinsic-Motivation Multi-Robot Social Formation Navigation with Coordinated Exploration". For experiment demonstrations, please refer to the [youtube video](https://youtu.be/1MUAJavW0BE). -->
 
@@ -10,8 +10,13 @@
 
 This paper investigates the application of reinforcement learning (RL) to multi-robot social formation navigation, a critical capability for enabling seamless human-robot coexistence. While RL offers a promising paradigm, the inherent unpredictability and often uncooperative dynamics of pedestrian behavior pose substantial challenges, particularly concerning the efficiency of coordinated exploration among robots. To address this, we propose a novel coordinated-exploration multi-robot RL algorithm introducing an intrinsic motivation exploration. Its core component is a self-learning intrinsic reward mechanism designed to collectively alleviate policy conservatism. Moreover, this algorithm incorporates a dual-sampling mode within the centralized training and decentralized execution framework to enhance the representation of both the navigation policy and the intrinsic reward, leveraging a two-time-scale update rule to decouple parameter updates. Empirical results on social formation navigation benchmarks demonstrate the proposed algorithm’s superior performance over existing state-of-the-art methods across crucial metrics. -->
 
-### The overall framework of our CEMRRL algorithm
-![Logo](https://raw.githubusercontent.com/czxhunzi/CEMRRL/main/figures/framework.png)
+### The overall framework of our SPLC algorithm
+
+<!-- ![Logo](https://raw.githubusercontent.com/sklus949/SPLC/main/crowd_nav/figures/SPLC.png) -->
+<img src="https://raw.githubusercontent.com/sklus949/SPLC/main/crowd_nav/figures/SPLC.png" 
+     alt="Logo" 
+     width="50%"/>
+
 
 
 
@@ -41,7 +46,8 @@ python train_reward_model.py
 cd offline
 python iql.py
 ```
-
+### Real-world Experiments
+The experiments in real-world environments can be viewed on [YouTube](https://youtu.be/vkWjg4Qcybg).
 <!-- ### Training curve
 Training curve comparison between different methods
 | ![Success](https://raw.githubusercontent.com/czxhunzi/CEMRRL/main/figures/success.png) | ![Reward](https://raw.githubusercontent.com/czxhunzi/CEMRRL/main/figures/reward.png) | ![Distance](https://raw.githubusercontent.com/czxhunzi/CEMRRL/main/figures/distance.png) |
