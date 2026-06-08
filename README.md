@@ -14,7 +14,10 @@ This paper investigates the application of reinforcement learning (RL) to multi-
 ### The overall framework of our SPLC algorithm
 
 <!-- ![Logo](https://raw.githubusercontent.com/sklus949/SPLC/main/crowd_nav/figures/SPLC.png) -->
-<img src="https://raw.githubusercontent.com/sklus949/SPLC/main/crowd_nav/figures/SPLC.png" 
+<!-- <img src="https://raw.githubusercontent.com/sklus949/SPLC/main/crowd_nav/figures/SPLC.png" 
+     alt="Logo" 
+     width="50%"/> -->
+<img src="https://raw.githubusercontent.com/sklus949/SPLC/blob/main/Graphical%20Abstract.png" 
      alt="Logo" 
      width="50%"/>
 
