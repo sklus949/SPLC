@@ -2,7 +2,7 @@
 
 <!-- This repository contains the codes for our paper titled "Intrinsic-Motivation Multi-Robot Social Formation Navigation with Coordinated Exploration". For experiment demonstrations, please refer to the [youtube video](https://youtu.be/1MUAJavW0BE). -->
 
-This repository contains the codes for our paper titled "SPLC: Social Preference Learning for Crowd Robot Navigation". For experiment demonstrations, please refer to the [youtube video](https://youtu.be/vkWjg4Qcybg).
+This repository contains the codes for our paper titled "SPLC: Social Preference Learning for Crowd Robot Navigation". The source code is coming soon. For experiment demonstrations, please refer to the [youtube video](https://youtu.be/vkWjg4Qcybg).
 
 
 
@@ -24,7 +24,7 @@ This paper investigates the application of reinforcement learning (RL) to multi-
 
 
 
-### Setup
+<!-- ### Setup
 1. Install [Python-RVO2](https://github.com/sybrenstuvel/Python-RVO2) library
 2. Install crowd_sim and crowd_nav into pip
 ```
@@ -50,7 +50,7 @@ python train_reward_model.py
 ```
 cd offline
 python iql.py
-```
+``` -->
 
 <!-- ### Training curve
 Training curve comparison between different methods
